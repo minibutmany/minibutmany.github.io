@@ -1,0 +1,15 @@
+d:war/:0:application/unknown
+d:data:0:application/unknown
+t:data/arial-15.fnt:21743:application/unknown
+i:data/arial-15.png:21814:image/png
+a:data/Bop.mp3:73293:application/unknown
+i:data/challengeball.png:4805:image/png
+a:data/Crash.mp3:318452:application/unknown
+a:data/swingSong.mp3:973150:application/unknown
+a:data/Wub.mp3:106557:application/unknown
+t:com/badlogic/gdx/graphics/g3d/shaders/default.fragment.glsl:5068:application/unknown
+t:com/badlogic/gdx/graphics/g3d/shaders/default.vertex.glsl:8574:application/unknown
+t:com/badlogic/gdx/graphics/g3d/shaders/depth.fragment.glsl:549:application/unknown
+t:com/badlogic/gdx/graphics/g3d/shaders/depth.vertex.glsl:2687:application/unknown
+t:com/badlogic/gdx/utils/arial-15.fnt:21743:application/unknown
+i:com/badlogic/gdx/utils/arial-15.png:21814:image/png
