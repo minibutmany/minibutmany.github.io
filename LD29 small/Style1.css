@@ -1,0 +1,53 @@
+body
+{
+	font-family: arial;
+	background-color: #001929;
+	padding: 20px;
+}
+div
+{
+	float: left;
+}
+#left
+{
+	background-color: #DD3322;
+	padding: 20px;
+	width: 300px;
+	margin-right: 10px;
+	float: left;
+}
+
+#center
+{
+	background-color: #2233BB;
+	padding: 20px;
+	margin-right: 10px;
+	width: 200px;
+	float: left;
+}
+
+a
+{
+	color: #FFFFFF;
+	line-height: 150%;
+}
+
+h2
+{
+	color:#AAFFFF;
+}
+h3
+{
+	color:#AAFFFF;
+}
+
+img
+{
+	margin-left: 4px;
+}
+
+p
+{
+	color: #FFFFFF;
+	margin-left: 20px;
+}
