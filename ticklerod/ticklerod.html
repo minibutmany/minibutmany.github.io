@@ -1,0 +1,113 @@
+<html>
+<link rel="stylesheet" type="text/css" href="tickle.css"/>
+<body onload="generateWord();">
+
+	<h2>TICKLEROD - The random word generator</h2>
+	<div id="left">
+		<p id="word"></p>
+		<input type="image" src="buttonUp.png" id="goButton" value="Generate Word" onclick="generateWord();" />
+	</div>
+	<script>
+	    var prefixes = ["yo",
+                         "mo",
+                         "bo",
+                         "pro",
+                         "blo",
+                         "fro",
+                         "kra",
+                         "knaw",
+                         "shaw",
+                         "slaw",
+                         "claw",
+                         "fra",
+                         "flu",
+                         "tru",
+                         "proo",
+                         "poo",
+                         "foo",
+                         "meist",
+                         "heist",
+                         "kriest",
+                         "ten",
+                         "flen",
+                         "pox",
+                         "box",
+                         "crox",
+                         "hyph",
+                         "hum",
+                         "blieg",
+                         "glim",
+                         "drop",
+                         "vipe",
+                         "tut",
+                         "tickle"];
+    var middles = [
+                        "un",
+                        "fun",
+                        "fun",
+                        "bun",
+                        "crun",
+                        "ken",
+                        "ten",
+                        "fur",
+                        "bein",
+                        "fergen",
+                        "meickle",
+                        "tensle",
+                        "poxle",
+                        "vice",
+                        "pertumphle",
+                        "blar"];
+                            
+    var suffixes = [
+                         "gimphed",
+                         "nocht",
+                         "blonk",
+                         "stomp",
+                         "ster",
+                         "ster",
+                         "numb",
+                         "clum",
+                         "stein",
+                         "glim",
+                         "drop",
+                         "vipe",
+                         "tut",
+                         "ian",
+                         "er",
+                         "ence",
+                         "ice",
+                         "le",
+                         "ed",
+                         "ft",
+                         "aus",
+                         "bisel",
+                         "raum",
+                         "cream",
+                         "blimp",
+                         "shaft",
+                         "shine",
+                         "socket"];
+		function generateWord()
+		{
+					var randNumber = Math.floor(Math.random() * 3);
+					var printString = ' ';
+					if(randNumber == 0)
+					{
+						printString = prefixes[Math.floor(Math.random() * prefixes.length)] + middles[Math.floor(Math.random() * middles.length)] + middles[Math.floor(Math.random() * middles.length)] + suffixes[Math.floor(Math.random() * suffixes.length)];
+					}
+					if(randNumber == 1)
+					{
+						printString = prefixes[Math.floor(Math.random() * prefixes.length)] + middles[Math.floor(Math.random() * middles.length)] + suffixes[Math.floor(Math.random() * suffixes.length)];
+					}
+					if(randNumber == 2)
+					{
+						printString = prefixes[Math.floor(Math.random() * prefixes.length)] + suffixes[Math.floor(Math.random() * suffixes.length)];
+					}
+
+					document.getElementById("word").innerHTML = printString;
+		}
+	</script>
+
+</body>
+</html>
