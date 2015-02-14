@@ -1,40 +1,61 @@
 <html>
-	<link rel="stylesheet" type="text/css" href="Style1.css"/>
+<title>Joe Land</title>
 	<body>
-	<h2>minibutmany.github.io</h2>
-		<div id="left">
-		<h3>web and android games</h3>
-			<a href="atomicswing/index.html">Atomic Swing</a></br>
-			<a href="https://play.google.com/store/apps/details?id=com.minibutmany.dinoroadtrip">Dino Road Trip</a><img src="android.png"></br>
-			<a href="https://play.google.com/store/apps/details?id=com.JoeC.LudumDare28">One Shot</a><img src="android.png"></br>
+		<div class="heading">
+			<img src="JoeLand.png"></img>
 		</div>
-		<div id="left">
-			<h3>game jams</h3>
-			<a href="warmup/index.html">Ludum Dare 29 Warmup</a></br>
-			<a href="combAndBrush/index.html">3 Hour Game Jam: Comb and Brush!</a></br>
-			<a href="LD29/index.html">Ludum Dare 29: Beneath The Skin</a>
-		</div>
-		<div id="left">
-			<h3>code</h3>
-			<a href="EasyNet.jar">EasyNet - Java networking</a></br>
+		<div class="imageDiv" id="stockButton" onmouseover="mouseOver()" onmouseleave="mouseLeave()">
+			<a href="stockGame.html">
+			<img src="stockGameLogo.png">
+			</a>
 		</div>
 	</body>
-	
-	<!-- Start of StatCounter Code for Default Guide -->
-		<script type="text/javascript">
-		var sc_project=9710884; 
-		var sc_invisible=1; 
-		var sc_security="143a1d90"; 
-		var scJsHost = (("https:" == document.location.protocol) ?
-		"https://secure." : "http://www.");
-		document.write("<sc"+"ript type='text/javascript' src='" +
-		scJsHost+
-		"statcounter.com/counter/counter.js'></"+"script>");
-		</script>
-		<noscript><div class="statcounter"><a title="web analytics"
-		href="http://statcounter.com/" target="_blank"><img
-		class="statcounter"
-		src="http://c.statcounter.com/9710884/0/143a1d90/1/"
-		alt="web analytics"></a></div></noscript>
-<!-- End of StatCounter Code for Default Guide -->
+	<style>
+	div
+	{
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.heading
+	{
+		background-color: #FFCC00;
+		width: 263;
+	}
+	.imageDiv
+	{
+		background-color: #005555;
+		width: 263;
+		padding-top: 20;
+		padding-bottom: 20;
+	}
+	img
+	{
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top:20;
+		margin-bottom:20;
+	}
+	</style>
+	<script>
+		var level = 55;
+		var hover = false;
+		setInterval(function () {colorSet()}, 5);
+		function mouseOver()
+		{
+			hover = true;
+		}
+		function mouseLeave()
+		{
+			hover = false;
+		}
+		function colorSet()
+		{
+			if(hover && level > 55)
+				level -= 1;
+			if(!hover && level < 99)
+				level += 1;
+			document.getElementById("stockButton").style.backgroundColor = "00" + level + "" + level;
+		}
+	</script>
 </html>

@@ -1,27 +1,29 @@
 <html>
 <body>
-	<h1>The Stock Game</h1>
+	<div>
+	<img src="stockGameLogo.png">
+	</div>
 	<p class="label" id="fundsLabel">Funds: $0</p>
 	<div class="container">
-		<div id="stock0" class="box" style="background-color: black;">
+		<div id="stock0" class="box" style="background-color: FFFF33;">
 			<p id="label0">$0<br>Shares:</p>
 			<button onclick="buyStock(0)">Buy</button>
 			<button onclick="sellStock(0)">Sell</button>
 		</div>
 		
-		<div id="stock1" class="box" style="background-color: red;">
+		<div id="stock1" class="box" style="background-color: FF5500;">
 			<p id="label1">$0<br>Shares:</p>
 			<button onclick="buyStock(1)">Buy</button>
 			<button onclick="sellStock(1)">Sell</button>
 		</div>
 
-		<div id="stock2" class="box" style="background-color: green;">
+		<div id="stock2" class="box" style="background-color: 00FF55;">
 			<p id="label2">$0<br>Shares:</p>
 			<button onclick="buyStock(2)">Buy</button>
 			<button onclick="sellStock(2)">Sell</button>
 		</div>
 
-		<div id="stock3" class="box" style="background-color: blue;">
+		<div id="stock3" class="box" style="background-color: 00AAFF;">
 			<p id="label3">$0<br>Shares:</p>
 			<button onclick="buyStock(3)">Buy</button>
 			<button onclick="sellStock(3)">Sell</button>
@@ -32,8 +34,8 @@
 	<style>
 		body
 		{
-			background-color: #003333;
-			color: #FFFFFF;
+			color: #000000;
+			font-family: arial;
 		}
 		h1
 		{
@@ -44,6 +46,7 @@
 		{
 			display: inline-block;
 			border: 1px;
+			border-style: solid;
 			border-color: #000000;
 			background-color: #FFFFFF;
 			margin-top: 5;
@@ -53,7 +56,7 @@
 		{
 			text-align: center;
 		}
-		div.container
+		div
 		{
 			width: 250;
 			margin-left: auto;
@@ -71,17 +74,18 @@
 	</style>
 	<script>
 		var NUMBER_OF_STOCKS = 4;
-		var funds = 20;
+		var funds = 40;
 		var sharesOwned = [0, 0, 0, 0];
-		var stockPrice = [Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100];
+		var stockPrice = [Math.random() * 30, Math.random() * 100, Math.random() * 100, Math.random() * 100];
 		var trend = [0.5, 0.5, 0.5, 0.5];
+		var overTrend = [0.5, 0.5, 0.5, 0.5];
 		
 		var c = document.getElementById("canvas")
 		var con = c.getContext("2d");
 		var lineLoc = 0;
 		
 		clearCanvas();
-		setInterval(function () {updateGame()}, 10);
+		setInterval(function () {updateGame()}, 50);
 		function updateGame()
 		{
 			for(var index = 0; index < NUMBER_OF_STOCKS; index++)
@@ -94,6 +98,8 @@
 				//update trends
 				if(Math.floor(Math.random()*30) == 0)
 					trend[index] = Math.random() * 10 - 5;
+				if(Math.floor(Math.random()*100) == 0)
+					overTrend[index] = Math.random() * 10 - 5;
 			}
 
 			document.getElementById("label0").innerHTML = "$" + stockPrice[0].toFixed(2) + "<br>" + "Shares: " + sharesOwned[0];
@@ -125,19 +131,19 @@
 		function nextStockValue(type)
 		{
 			var random =  Math.random() * 1 - 0.5;
-			var value = random * trend[type];
+			var value = random * trend[type] * overTrend[type];
 			return value;
 		}
 
 		function updateCanvas()
 		{
-			con.fillStyle = "black";
+			con.fillStyle = "#FFFF33";
 			con.fillRect(lineLoc, canvas.height - stockPrice[0], 2, 2);
-			con.fillStyle = "red";
+			con.fillStyle = "#FF5500";
 			con.fillRect(lineLoc, canvas.height - stockPrice[1], 2, 2);
-			con.fillStyle = "green";
+			con.fillStyle = "#00FF55";
 			con.fillRect(lineLoc, canvas.height - stockPrice[2], 2, 2);
-			con.fillStyle = "blue";
+			con.fillStyle = "#00AAFF";
 			con.fillRect(lineLoc, canvas.height - stockPrice[3], 2, 2);
 			lineLoc += 1;
 			if(lineLoc > 220)
@@ -149,7 +155,7 @@
 
 		function clearCanvas()
 		{
-			con.fillStyle = "white";
+			con.fillStyle = "black";
 			con.fillRect(0, 0, canvas.width, canvas.height);
 			for(hl = 0; hl < 200; hl += 10)
 			{
