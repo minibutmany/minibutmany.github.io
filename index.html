@@ -1,6 +1,7 @@
 <html>
 <title>Joe Land</title>
 	<body>
+		<canvas id="backCanvas"></canvas>
 		<div class="heading">
 			<img src="JoeLand.png"></img>
 		</div>
@@ -13,6 +14,7 @@
 	<style>
 	div
 	{
+		position: relative;
 		margin-left: auto;
 		margin-right: auto;
 	}
@@ -36,11 +38,26 @@
 		margin-top:20;
 		margin-bottom:20;
 	}
+	canvas
+	{
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+	}
+    -ms-interpolation-mode: nearest-neighbor;   // IE (non standard naming)
+	}
 	</style>
 	<script>
+		var context = document.getElementById("backCanvas").getContext("2d");
 		var level = 55;
 		var hover = false;
+		var cubeImg = new Image();
+		var positions;
+		setInterval(function () {updateCanvas()}, 100);
 		setInterval(function () {colorSet()}, 5);
+		initGraphics();
 		function mouseOver()
 		{
 			hover = true;
@@ -57,5 +74,53 @@
 				level += 1;
 			document.getElementById("stockButton").style.backgroundColor = "00" + level + "" + level;
 		}
+
+		function initGraphics()
+		{
+			cubeImg.src = "cube.png";
+			context.canvas.width = window.innerWidth;
+			context.canvas.height = window.innerHeight;
+
+			positions = new Array(30);
+			for(var x = 0; x < 30; x++)
+			{
+				positions[x] = 5;
+			}
+		}
+
+		function updatePositions()
+		{
+			for(var x = 0; x < 30; x++)
+			{
+				if(parseInt(Math.random() * 2) == 1 && positions[x] < 20)
+				{
+					positions[x] += 1;
+				}
+				else if(positions[x] > 1)
+				{
+					positions[x] -= 1;
+				}
+			}
+		}
+
+		function updateCanvas()
+		{
+			updatePositions();
+			context.fillStyle = "white";
+			context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+			for(var index = 0; index < 30; index++)
+			{
+				for(var h = 0; h < positions[index]; h++)
+				{
+					context.drawImage(cubeImg, (index * 50) | 0, context.canvas.height - (h * 9) | 0, 19, 19);
+				}
+			}
+		}
+
+		window.onresize = function(event)
+		{
+			context.canvas.width = window.innerWidth;
+			context.canvas.height = window.innerHeight;
+		};
 	</script>
 </html>
