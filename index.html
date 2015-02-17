@@ -81,8 +81,8 @@
 			context.canvas.width = window.innerWidth;
 			context.canvas.height = window.innerHeight;
 
-			positions = new Array(30);
-			for(var x = 0; x < 30; x++)
+			positions = new Array(context.canvas.width / 50 | 0);
+			for(var x = 0; x < positions.length; x++)
 			{
 				positions[x] = 5;
 			}
@@ -90,7 +90,7 @@
 
 		function updatePositions()
 		{
-			for(var x = 0; x < 30; x++)
+			for(var x = 0; x < positions.length; x++)
 			{
 				if(parseInt(Math.random() * 2) == 1 && positions[x] < 20)
 				{
@@ -108,7 +108,7 @@
 			updatePositions();
 			context.fillStyle = "white";
 			context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-			for(var index = 0; index < 30; index++)
+			for(var index = 0; index < positions.length; index++)
 			{
 				for(var h = 0; h < positions[index]; h++)
 				{
