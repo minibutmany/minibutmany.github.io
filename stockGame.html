@@ -1,0 +1,168 @@
+<html>
+<body>
+	<div>
+	<img src="stockGameLogo.png">
+	</div>
+	<p class="label" id="fundsLabel">Funds: $0</p>
+	<div class="container">
+		<div id="stock0" class="box" style="background-color: FFFF33;">
+			<p id="label0">$0<br>Shares:</p>
+			<button onclick="buyStock(0)">Buy</button>
+			<button onclick="sellStock(0)">Sell</button>
+		</div>
+		
+		<div id="stock1" class="box" style="background-color: FF5500;">
+			<p id="label1">$0<br>Shares:</p>
+			<button onclick="buyStock(1)">Buy</button>
+			<button onclick="sellStock(1)">Sell</button>
+		</div>
+
+		<div id="stock2" class="box" style="background-color: 00FF55;">
+			<p id="label2">$0<br>Shares:</p>
+			<button onclick="buyStock(2)">Buy</button>
+			<button onclick="sellStock(2)">Sell</button>
+		</div>
+
+		<div id="stock3" class="box" style="background-color: 00AAFF;">
+			<p id="label3">$0<br>Shares:</p>
+			<button onclick="buyStock(3)">Buy</button>
+			<button onclick="sellStock(3)">Sell</button>
+		</div>
+
+		<canvas id="canvas" width="220" height="200"></canvas>
+	</div>
+	<style>
+		body
+		{
+			color: #000000;
+			font-family: arial;
+		}
+		h1
+		{
+			text-align: center;
+			font-size: 18px;
+		}
+		canvas
+		{
+			display: inline-block;
+			border: 1px;
+			border-style: solid;
+			border-color: #000000;
+			background-color: #FFFFFF;
+			margin-top: 5;
+			margin-right: 5;
+		}
+		p.label
+		{
+			text-align: center;
+		}
+		div
+		{
+			width: 250;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		div.box
+		{
+			display: inline-block;
+			width: 100;
+			height: 100;
+			margin-top: 5;
+			margin-right: 5;
+			padding-left: 5;
+		}
+	</style>
+	<script>
+		var NUMBER_OF_STOCKS = 4;
+		var funds = 40;
+		var sharesOwned = [0, 0, 0, 0];
+		var stockPrice = [Math.random() * 30, Math.random() * 100, Math.random() * 100, Math.random() * 100];
+		var trend = [0.5, 0.5, 0.5, 0.5];
+		var overTrend = [0.5, 0.5, 0.5, 0.5];
+		
+		var c = document.getElementById("canvas")
+		var con = c.getContext("2d");
+		var lineLoc = 0;
+		
+		clearCanvas();
+		setInterval(function () {updateGame()}, 50);
+		function updateGame()
+		{
+			for(var index = 0; index < NUMBER_OF_STOCKS; index++)
+			{
+				stockPrice[index] += nextStockValue(index);
+				if(stockPrice[index] <= 0.01)
+					stockPrice[index] = 0.01;
+				if(stockPrice[index] >= 200)
+					stockPrice[index] = 200;
+				//update trends
+				if(Math.floor(Math.random()*30) == 0)
+					trend[index] = Math.random() * 10 - 5;
+				if(Math.floor(Math.random()*100) == 0)
+					overTrend[index] = Math.random() * 10 - 5;
+			}
+
+			document.getElementById("label0").innerHTML = "$" + stockPrice[0].toFixed(2) + "<br>" + "Shares: " + sharesOwned[0];
+			document.getElementById("label1").innerHTML = "$" + stockPrice[1].toFixed(2) + "<br>" + "Shares: " + sharesOwned[1];
+			document.getElementById("label2").innerHTML = "$" + stockPrice[2].toFixed(2) + "<br>" + "Shares: " + sharesOwned[2];
+			document.getElementById("label3").innerHTML = "$" + stockPrice[3].toFixed(2) + "<br>" + "Shares: " + sharesOwned[3];
+			document.getElementById("fundsLabel").innerHTML = "Funds: $" + funds.toFixed(2);
+			updateCanvas();
+		}
+
+		function buyStock(type)
+		{
+			if(funds >= stockPrice[type])
+			{
+				sharesOwned[type]++;
+				funds -= stockPrice[type];
+			}
+		}
+
+		function sellStock(type)
+		{
+			if(sharesOwned[type] >= 1)
+			{
+				sharesOwned[type] -= 1;
+				funds += stockPrice[type];
+			}
+		}
+
+		function nextStockValue(type)
+		{
+			var random =  Math.random() * 1 - 0.5;
+			var value = random * trend[type] * overTrend[type];
+			return value;
+		}
+
+		function updateCanvas()
+		{
+			con.fillStyle = "#FFFF33";
+			con.fillRect(lineLoc, canvas.height - stockPrice[0], 2, 2);
+			con.fillStyle = "#FF5500";
+			con.fillRect(lineLoc, canvas.height - stockPrice[1], 2, 2);
+			con.fillStyle = "#00FF55";
+			con.fillRect(lineLoc, canvas.height - stockPrice[2], 2, 2);
+			con.fillStyle = "#00AAFF";
+			con.fillRect(lineLoc, canvas.height - stockPrice[3], 2, 2);
+			lineLoc += 1;
+			if(lineLoc > 220)
+			{
+				lineLoc = 0;
+				clearCanvas();
+			}
+		}
+
+		function clearCanvas()
+		{
+			con.fillStyle = "black";
+			con.fillRect(0, 0, canvas.width, canvas.height);
+			for(hl = 0; hl < 200; hl += 10)
+			{
+				con.fillStyle = "gray";
+				con.fillRect(0, hl, canvas.width, 1);
+			}
+		}
+	</script>
+</body>
+</html>
