@@ -15,8 +15,9 @@
 				Erase blocks with the E key.<br>
 				Select which block to use with the tool bar.<br>
 				Use the colored wireframe blocks as reference points.<br><br>
-				<a href = "#" id="download" onclick="saveImage()">Get image file</a>
+				<a href = "#" id="download" onclick="saveImage()">Show drawing as image below</a>
 			</p>
+			<img id="savePic">
 		</div>
 	</body>
 	<style>
@@ -132,8 +133,7 @@
 		{
 			render(false);
 			var imgURL = can.toDataURL();
-			document.getElementById("download").href = imgURL;
-			console.log(imgURL);
+			document.getElementById("savePic").src = imgURL;
 		}
 
 		function drawTile(image, x, y, z, size)
