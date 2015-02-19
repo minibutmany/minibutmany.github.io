@@ -5,6 +5,9 @@
 			<img src="img/greyCube.png" onclick="setTileType('greyCube')">
 			<img src="img/blackCube.png" onclick="setTileType('blackCube')">
 			<img src = "img/greyStairs.png" onclick="setTileType('greyStairs')">
+			<img src = "img/greyStairsFlip.png" onclick="setTileType('greyStairsFlip')">
+			<img src = "img/greyTunnel.png" onclick="setTileType('greyTunnel')">
+			<img src = "img/greyTunnelFlip.png" onclick="setTileType('greyTunnelFlip')">
 		</div>
 		<div id="instructions">
 			<p>
@@ -49,7 +52,10 @@
 		
 		var greyCubeImage = new Image();
 		var greyStairsImage = new Image();
+		var greyStairsFlipImage = new Image();
 		var blackCubeImage = new Image();
+		var greyTunnelImage = new Image();
+		var greyTunnelFlipImage = new Image();
 		var redCursorImage = new Image();
 		var blueCursorImage = new Image();
 		var greenCursorImage = new Image();
@@ -57,7 +63,10 @@
 		
 		greyCubeImage.src = "img/greyCube.png"; 
 		greyStairsImage.src = "img/greyStairs.png";
+		greyStairsFlipImage.src = "img/greyStairsFlip.png";
 		blackCubeImage.src = "img/blackCube.png";
+		greyTunnelImage.src = "img/greyTunnel.png";
+		greyTunnelFlipImage.src = "img/greyTunnelFlip.png";
 		redCursorImage.src = "img/cursorRed.png";
 		blueCursorImage.src = "img/cursorBlue.png";
 		greenCursorImage.src = "img/cursorGreen.png";
@@ -104,6 +113,12 @@
 							drawTile(greyStairsImage, x, y, z, tileSize);
 						if(tiles[x][y][z] == "blackCube")
 							drawTile(blackCubeImage, x, y, z, tileSize);
+						if(tiles[x][y][z] == "greyStairsFlip")
+							drawTile(greyStairsFlipImage, x, y, z, tileSize);
+						if(tiles[x][y][z] == "greyTunnel")
+							drawTile(greyTunnelImage, x, y, z, tileSize);
+						if(tiles[x][y][z] == "greyTunnelFlip")
+							drawTile(greyTunnelFlipImage, x, y, z, tileSize);
 						if(renderExtras)
 						{
 							if(x == cursorX && y == cursorY && z != cursorZ && (tiles[x][y][z] != "null" || z == 0))
@@ -126,6 +141,12 @@
 					context.drawImage(greyStairsImage, 0, 0, 40, 40);
 				if(tileType == "blackCube")
 					context.drawImage(blackCubeImage, 0, 0, 40, 40);
+				if(tileType == "greyStairsFlip")
+					context.drawImage(greyStairsFlipImage, 0, 0, 40, 40);
+				if(tileType == "greyTunnel")
+					context.drawImage(greyTunnelImage, 0, 0, 40, 40);
+				if(tileType == "greyTunnelFlip")
+					context.drawImage(greyTunnelFlipImage, 0, 0, 40, 40);
 			}
 		}
 
