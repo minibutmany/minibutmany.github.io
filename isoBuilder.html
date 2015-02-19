@@ -1,0 +1,171 @@
+<html>
+	<body>
+		<canvas id="drawCanvas" width="620" height="320">whoa</canvas>
+		<div>
+			<img src="img/greyCube.png" onclick="setTileType('greyCube')">
+			<img src="img/blackCube.png" onclick="setTileType('blackCube')">
+			<img src = "img/greyStairs.png" onclick="setTileType('greyStairs')">
+		</div>
+		<div id="instructions">
+			<p>
+				Instructions:<br>
+				Use the arrow keys to move the red cursor on the X and Z axis.<br>
+				Use the W and S keys to move the cursor on the Y axis.<br>
+				Place blocks with the space bar.<br>
+				Erase blocks with the E key.<br>
+				Select which block to use with the tool bar.<br>
+				Use the colored wireframe blocks as reference points.<br><br>
+				<button onclick="saveImage()">Get image file</button>
+			</p>
+		</div>
+	</body>
+	<style>
+	canvas
+	{
+		display: block;
+		background-color: #447788;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	div
+	{
+		margin-left: auto;
+		margin-right: auto;
+		background-color: #226677;
+		width: 620;
+	}
+	#instructions
+	{
+		background-color: #CCCCCC;
+		padding: 10;
+		width: 600;
+	}
+	</style>
+	<script>
+		var can = document.getElementById("drawCanvas");
+		var context = can.getContext("2d");
+		
+		var greyCubeImage = new Image();
+		var greyStairsImage = new Image();
+		var blackCubeImage = new Image();
+		var redCursorImage = new Image();
+		var blueCursorImage = new Image();
+		var greenCursorImage = new Image();
+		var yellowCursorImage = new Image();
+		
+		greyCubeImage.src = "img/greyCube.png"; 
+		greyStairsImage.src = "img/greyStairs.png";
+		blackCubeImage.src = "img/blackCube.png";
+		redCursorImage.src = "img/cursorRed.png";
+		blueCursorImage.src = "img/cursorBlue.png";
+		greenCursorImage.src = "img/cursorGreen.png";
+		yellowCursorImage.src = "img/cursorYellow.png";
+		var mapSize = 30;
+		var cursorX = mapSize/2;
+		var cursorY = mapSize/2;
+		var cursorZ = 0;
+		var tiles;
+		var tileSize = 20;
+		var tileType = "greyCube";
+		init();
+		setInterval(function () {render(true)}, 5);
+
+		function init()
+		{
+			tiles = new Array(mapSize);
+			for(var ix = 0; ix < mapSize; ix++)
+			{
+				tiles[ix] = new Array(mapSize);
+				for(var iy = 0; iy < mapSize; iy++)
+				{
+					tiles[ix][iy] = new Array(mapSize);
+					for(var iz = 0; iz < mapSize; iz++)
+					{
+						tiles[ix][iy][iz] = "null";
+					}
+				}
+			}
+		}
+
+		function render(renderExtras)
+		{
+			context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+			for(var z = 0; z < mapSize; z++)
+			{
+				for(var y = 0; y < mapSize; y++)
+				{
+					for(var x = 0; x < mapSize; x++)
+					{
+						if(tiles[x][y][z] == "greyCube")
+							drawTile(greyCubeImage, x, y, z, tileSize);
+						if(tiles[x][y][z] == "greyStairs")
+							drawTile(greyStairsImage, x, y, z, tileSize);
+						if(tiles[x][y][z] == "blackCube")
+							drawTile(blackCubeImage, x, y, z, tileSize);
+						if(renderExtras)
+						{
+							if(x == cursorX && y == cursorY && z != cursorZ && (tiles[x][y][z] != "null" || z == 0))
+								drawTile(blueCursorImage, x, y, z, tileSize);
+							if(x == cursorX && y != cursorY && z == cursorZ && tiles[x][y][z] != "null")
+								drawTile(greenCursorImage, x, y, z, tileSize);
+							if(x != cursorX && y == cursorY && z == cursorZ && tiles[x][y][z] != "null")
+								drawTile(yellowCursorImage, x, y, z, tileSize);
+							if(x == cursorX && y == cursorY && z == cursorZ)
+								drawTile(redCursorImage, x, y, z, tileSize);
+						}
+					}
+				}
+			}
+			if(renderExtras)
+			{
+				if(tileType == "greyCube")
+					context.drawImage(greyCubeImage, 0, 0, 40, 40);
+				if(tileType == "greyStairs")
+					context.drawImage(greyStairsImage, 0, 0, 40, 40);
+				if(tileType == "blackCube")
+					context.drawImage(blackCubeImage, 0, 0, 40, 40);
+			}
+		}
+
+		function saveImage()
+		{
+			render(false);
+			var imgURL = can.toDataURL();
+			window.open(imgURL);
+			console.log(imgURL);
+		}
+
+		function drawTile(image, x, y, z, size)
+		{
+			context.drawImage(image, 300 + x * (size/2) - (y * (size/2)), y * (size/4) + (x * (size/4)) - (z * (size/2)), size, size);
+		}
+
+		(document).addEventListener("keydown", keyPushy);
+
+		function keyPushy(e)
+		{
+			if(e.keyCode == 32)//space
+				tiles[cursorX][cursorY][cursorZ] = tileType;
+			if(e.keyCode == 37 && cursorX > 0)//left
+				cursorX--;
+			if(e.keyCode == 38 && cursorY > 0)//up
+				cursorY--;
+			if(e.keyCode == 39 && cursorX < mapSize - 1)//right
+				cursorX++;
+			if(e.keyCode == 40 && cursorY < mapSize - 1)//down
+				cursorY++;
+			if(e.keyCode == 87 && cursorZ < mapSize)//W
+				cursorZ++;
+			if(e.keyCode == 83 && cursorZ > 0)//S
+				cursorZ--;
+			if(e.keyCode == 69)//E
+				tiles[cursorX][cursorY][cursorZ] = "null";//Erase the current block
+		}
+
+		function setTileType(type)
+		{
+			tileType = type;
+		}
+	</script>
+</html>
