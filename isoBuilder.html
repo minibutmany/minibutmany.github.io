@@ -15,7 +15,7 @@
 				Erase blocks with the E key.<br>
 				Select which block to use with the tool bar.<br>
 				Use the colored wireframe blocks as reference points.<br><br>
-				<button onclick="saveImage()">Get image file</button>
+				<a href = "#" id="download" onclick="saveImage()">Get image file</a>
 			</p>
 		</div>
 	</body>
@@ -132,7 +132,7 @@
 		{
 			render(false);
 			var imgURL = can.toDataURL();
-			window.open(imgURL);
+			document.getElementById("download").href = imgURL;
 			console.log(imgURL);
 		}
 
